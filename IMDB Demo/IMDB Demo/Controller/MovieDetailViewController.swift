@@ -27,8 +27,6 @@ class MovieDetailViewController: UIViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -37,11 +35,8 @@ class MovieDetailViewController: UIViewController {
             posterImage.sd_setImage(with: URL.init(string: posterUrl), placeholderImage: nil, options: .retryFailed, context: nil)
         }
         
-        
         rating.text = "\(movieDetail?.vote_average ?? 0.0)"
         movieTitle.text = movieDetail?.title
         movieDescription.text = movieDetail?.overview
     }
-    
-
 }

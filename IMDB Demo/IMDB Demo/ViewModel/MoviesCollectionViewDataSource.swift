@@ -17,8 +17,9 @@ class MoviesCollectionViewDataSource<CELL : UICollectionViewCell,T> : NSObject, 
     
     var configureCell : (CELL, T) -> () = {_,_ in }
     
-    var handleCick : ((_ movie : Movie) -> ()) = {_ in }
+    var handleCick : ((_ movie : T) -> ()) = {_ in }
     
+    private let itemsPerRow: CGFloat = 2
     
     private let sectionInsets = UIEdgeInsets(
       top: 10.0,
@@ -45,7 +46,12 @@ class MoviesCollectionViewDataSource<CELL : UICollectionViewCell,T> : NSObject, 
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize.init(width: 180, height: 300)
+        
+        let paddingSpace = sectionInsets.left * (itemsPerRow + 1)
+        let availableWidth = collectionView.frame.width - paddingSpace
+        let widthPerItem = availableWidth / itemsPerRow
+
+        return CGSize.init(width: widthPerItem, height: 300)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
@@ -58,7 +64,7 @@ class MoviesCollectionViewDataSource<CELL : UICollectionViewCell,T> : NSObject, 
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
-        let item = self.items[indexPath.row] as! Movie
+        let item = self.items[indexPath.row]
         self.handleCick(item)
     }
 }
