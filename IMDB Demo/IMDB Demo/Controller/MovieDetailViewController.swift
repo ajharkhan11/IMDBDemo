@@ -20,6 +20,9 @@ class MovieDetailViewController: UIViewController {
     
     @IBOutlet weak var movieDescription: UILabel!
     
+    private var dataSource : MoviesCollectionViewDataSource<MovieListCollectionViewCell , Movie>!
+    
+    
     var movieDetail : Movie?
     
     
